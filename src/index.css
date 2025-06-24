@@ -9,3 +9,8 @@
   --font-headings: "Space Grotesk", sans-serif;
   --font-body: "Poppins", sans-serif;
 }
+@layer components {
+  .styled-ul > li > Link {
+    @apply p-4;
+  }
+}
