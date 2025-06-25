@@ -10,7 +10,7 @@
   --font-body: "Poppins", sans-serif;
 }
 @layer components {
-  .styled-ul > li > Link {
-    @apply p-4;
+  .styled-ul > li > a > svg {
+    @apply mr-2;
   }
 }

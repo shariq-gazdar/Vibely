@@ -4,15 +4,16 @@ import { auth } from "./config/firebase";
 import { Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import Sidebar from "./components/Sidebar";
+import Signup from "./components/Signup";
 function App() {
   const user = auth.currentUser;
   return (
-    <>
-      <Sidebar />
+    <div className="App flex">
       <Routes>
-        <Route path="/" element={<Home />} />
+        {user ? <Sidebar /> : null}
+        <Route path="/" element={user ? <Home /> : <Signup />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
