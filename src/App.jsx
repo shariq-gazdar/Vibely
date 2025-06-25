@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import Sidebar from "./components/Sidebar";
 import Signup from "./components/Signup";
+import Search from "./routes/Search";
 function App() {
   const [user, setUser] = useState(null);
   console.log(user);
@@ -22,10 +23,11 @@ function App() {
   }, []);
 
   return (
-    <div className="App flex">
+    <div className="App flex ">
       {user ? <Sidebar /> : null}
       <Routes>
         <Route path="/" element={user ? <Home /> : <Signup />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </div>
   );
