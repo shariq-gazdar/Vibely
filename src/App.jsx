@@ -8,12 +8,12 @@ import Signup from "./components/Signup";
 import Search from "./routes/Search";
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log("User is signed in:");
+        console.log("User is signed in.");
         setUser(user);
       } else {
         console.log("No user is signed in.");

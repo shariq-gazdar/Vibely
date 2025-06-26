@@ -49,7 +49,11 @@ function Navbar() {
           type="text"
           placeholder="Search"
           className="bg-primary-light/55 px-5 py-2 rounded-full text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent w-[35%] font-body text-[16px] font-normal"
-          onClick={() => navigate("/search")}
+          onClick={() => {
+            if (location.pathname !== "/search") {
+              navigate("/search");
+            }
+          }}
         />
       </div>
 
