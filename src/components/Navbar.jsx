@@ -57,7 +57,7 @@ function Navbar() {
         />
       </div>
 
-      <div className="user-info flex w-[20%] items-center gap-x-4 font-bold font-body relative">
+      <div className="user-info flex w-[30%] items-center gap-x-4 font-bold font-body relative text-[14px] ">
         <div className="user-image" onClick={() => setDpClick(!dpClick)}>
           {userDp ? (
             <img
