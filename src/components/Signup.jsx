@@ -4,37 +4,65 @@ import googleIcons from "../assets/googleIcon.png";
 import { auth, provider } from "../config/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 function Signup() {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider).then((result) => {
       console.log(auth.currentUser);
     });
   };
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!name && !email && !password && !confirmPassword) {
+      return;
+    }
+    if (password == confirmPassword) {
+    }
+  };
   return (
     <div className=" bg-gradient-to-b from-primary-light to-primary to-35% w-full h-[100vh] ">
       <div className="signup-container flex flex-col w-full h-full justify-center items-center text-white text-2xl font-bold gap-y-10">
         <h1 className="font-headings">Signup</h1>
-        <form className="signup-form flex flex-col gap-4 text-[16px] w-fit font-body font-normal">
+        <form
+          className="signup-form flex flex-col gap-4 text-[16px] w-fit font-body font-normal"
+          onSubmit={(e) => {
+            handleFormSubmit(e);
+          }}
+        >
           <input
             type="text"
             name="name"
             placeholder="Name"
-            className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent"
+            className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent name"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            required
           />
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent"
+            className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
-          <div className="relative">
+          <div className="relative password">
             <input
               type={showPass ? "text" : "password"}
               name="password"
               placeholder="Password"
               className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent w-full"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
             />
             <FontAwesomeIcon
               icon={showPass ? faEyeSlash : faEye}
@@ -43,12 +71,15 @@ function Signup() {
               onClick={() => setShowPass(!showPass)}
             />
           </div>
-          <div className="relative">
+          <div className="relative confirm-password">
             <input
               type={showConfirmPass ? "text" : "password"}
               name="confirmPassword"
               placeholder="Confirm Password"
               className="bg-secondary p-2  rounded focus:outline-none focus:border focus:border-accent w-full"
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
             />
             <FontAwesomeIcon
               icon={showConfirmPass ? faEyeSlash : faEye}
@@ -57,7 +88,7 @@ function Signup() {
               onClick={() => setShowConfirmPass(!showConfirmPass)}
             />
           </div>
-          <div className="w-full relative overflow-clip">
+          <div className="w-full relative overflow-clip google-signin">
             <img
               src={googleIcons}
               alt="google Icon"
@@ -77,7 +108,7 @@ function Signup() {
             <p className="text-center text-[14px] font-normal">
               Already have an account?{" "}
               <span className="text-accent hover:text-accent-light transition duration-300 cursor-pointer">
-                Login
+                <Link to="/login">Login</Link>
               </span>
             </p>
           </div>
