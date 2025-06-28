@@ -72,7 +72,7 @@ function Navbar() {
             />
           )}
         </div>
-        {user?.displayName}
+        {user?.displayName || user?.email.split("@")[0]}
         {dpClick && (
           <div className="user-dropdown absolute left-0 top-[50px] bg-primary-light/90 rounded-lg shadow-lg p-4 w-[200px]">
             <ul className="text-white text-[16px] font-normal">

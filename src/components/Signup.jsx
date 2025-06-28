@@ -5,7 +5,7 @@ import { auth, provider } from "../config/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import SideNotify from "../components/SideNotify";
+import SideNotify from "../utilities/SideNotify";
 function Signup() {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);

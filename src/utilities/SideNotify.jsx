@@ -18,7 +18,7 @@ function SideNotify({ children, show, onClose, code }) {
           exit={{ x: "100%" }}
           transition={{ duration: 0.5 }}
           className="fixed top-10 right-5
-           text-white p-1 rounded-lg shadow-lg z-50"
+           text-white p-2 rounded-lg shadow-lg z-50"
           style={{
             backgroundColor: code === "success" ? "#4CAF50" : "#F44336",
           }}
