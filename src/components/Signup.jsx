@@ -5,6 +5,7 @@ import { auth, provider } from "../config/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import SideNotify from "../components/SideNotify";
 function Signup() {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -12,19 +13,48 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [notification, setNotification] = useState({
+    type: "",
+    message: "",
+    visible: false,
+  });
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider).then((result) => {
       console.log(auth.currentUser);
     });
   };
+
+  const notify = (type, message) => {
+    setNotification({ type, message, visible: true });
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!name && !email && !password && !confirmPassword) {
+      notify("error", "Please fill in all fields.");
       return;
     }
-    if (password == confirmPassword) {
+    if (password.length < 6) {
+      notify("error", "Password must be at least 6 characters long.");
+      return;
     }
+    if (password !== confirmPassword) {
+      notify("error", "Passwords do not match!");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        notify("success", "Signup successful!");
+      })
+      .catch((error) => {
+        notify("error", error.message || "Signup failed.");
+        console.error("Error signing up:", error);
+      });
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
   return (
     <div className=" bg-gradient-to-b from-primary-light to-primary to-35% w-full h-[100vh] ">
@@ -119,6 +149,15 @@ function Signup() {
             Submit
           </button>
         </form>
+        {notification.visible && (
+          <SideNotify
+            code={notification.type}
+            show={notification.visible}
+            onClose={() => setNotification({ ...notification, visible: false })}
+          >
+            <p>{notification.message}</p>
+          </SideNotify>
+        )}
       </div>
     </div>
   );
