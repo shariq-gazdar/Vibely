@@ -17,24 +17,34 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false); // <--- Added this
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log("Auth State:", user);
       setUser(user);
+      setAuthChecked(true);
     });
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (
-      !user &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/signup"
-    ) {
+    if (!authChecked) return; // wait for Firebase
+    if (!user && !["/login", "/signup"].includes(location.pathname)) {
       navigate("/signup");
     }
-  }, [user, location, navigate]);
+    if (user && ["/signup", "/login"].includes(location.pathname)) {
+      navigate("/");
+    }
+  }, [authChecked, user, location.pathname, navigate]);
+
+  // Optional: Show loading until auth status is known
+  if (!authChecked) {
+    return <div className="text-white p-10 text-center">Loading...</div>;
+  }
+
   return (
     <div className="App flex">
       {user && <Sidebar />}
