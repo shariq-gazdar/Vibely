@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!authChecked) return; // wait for Firebase
+    if (!authChecked) return;
     if (!user && !["/login", "/signup"].includes(location.pathname)) {
       navigate("/signup");
     }
@@ -40,7 +40,6 @@ function App() {
     }
   }, [authChecked, user, location.pathname, navigate]);
 
-  // Optional: Show loading until auth status is known
   if (!authChecked) {
     return <div className="text-white p-10 text-center">Loading...</div>;
   }
