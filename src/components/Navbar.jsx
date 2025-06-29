@@ -14,10 +14,8 @@ function Navbar() {
   const location = useLocation();
   const user = auth.currentUser;
   const userDp = user?.photoURL;
-
   const goBack = () => navigate(-1);
   const goForward = () => navigate(1);
-
   const isInitial = location.key === "default";
   const [dpClick, setDpClick] = useState(false);
 
@@ -57,8 +55,8 @@ function Navbar() {
         />
       </div>
 
-      <div className="user-info flex w-[30%] items-center gap-x-4 font-bold font-body relative text-[14px] ">
-        <div className="user-image" onClick={() => setDpClick(!dpClick)}>
+      <div className="user-info flex w-[20%] items-center gap-x-4 font-bold font-body relative text-[14px] ">
+        <div className="user-image w-fit" onClick={() => setDpClick(!dpClick)}>
           {userDp ? (
             <img
               src={userDp}
@@ -72,9 +70,11 @@ function Navbar() {
             />
           )}
         </div>
-        {user?.displayName || user?.email.split("@")[0]}
+        <span className="lg:block hidden">
+          {user?.displayName || user?.email.split("@")[0]}
+        </span>
         {dpClick && (
-          <div className="user-dropdown absolute left-0 top-[50px] bg-primary-light/90 rounded-lg shadow-lg p-4 w-[200px]">
+          <div className="user-dropdown absolute left-0 top-[50px] bg-primary-light/90 rounded-lg shadow-lg p-3 ">
             <ul className="text-white text-[16px] font-normal">
               <li
                 className="py-2 hover:bg-accent/20 cursor-pointer"
